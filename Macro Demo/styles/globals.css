@@ -1,0 +1,54 @@
+html,
+body {
+  background: #ffffff !important;
+  height: 100%;
+}
+
+html body,
+#__next {
+  /* overflow-x: hidden; */
+  scroll-behavior: smooth !important;
+  /* background: linear-gradient(to top right, #fff9f9, #cc8b8b) !important; */
+  /* background-image: src= "assets\images\pexels-lukas-616401.jpg"; */
+  height: 100%;
+  width: 100%;
+  /* overflow-y: hidden; */
+  /* overflow: auto; */
+}
+
+@media only screen and (max-width: 1030px) {
+  .picture-media-q {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 422px) {
+  .footerGone {
+    display: none !important;
+  }
+}
+
+.carousel .thumb {
+  display: none !important;
+}
+
+.carousel .slide img {
+  height: 700px;
+  /* change this to whatever you want */
+  width: auto;
+  filter: brightness(80%);
+}
+
+.carousel .slide .legend {
+  background-color: transparent !important;
+  position: absolute !important;
+  left: 0% !important;
+  bottom: 31% !important;
+  opacity: 1 !important;
+  margin-left: 0% !important;
+  margin: auto;
+  width: 100% !important;
+  align-items: center !important;
+  justify-content: center !important;
+  display: grid !important;
+}

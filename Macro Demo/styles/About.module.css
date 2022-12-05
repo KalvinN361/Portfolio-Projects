@@ -1,0 +1,44 @@
+.nav {
+  margin-top: 20px;
+  margin-left: 120px;
+}
+
+.headerone {
+  font-family: Manrope;
+  margin-top: 50px;
+  font-size: 70px;
+  background-color: black;
+  background-image: #CC1F1F);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+
+}
+
+.steps {
+  margin-top: 3%;
+  font-size: 35px;
+  color: black;
+  font-family: Manrope;
+}
+
+.ptags {
+  margin-top: 3%;
+  font-size: 20px;
+  color: #330000;
+  font-family: Manrope;
+}
+
+@media only screen and (max-width: 580px) {
+  .headerone {
+    font-size: 50px;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .nav {
+    margin-left: 20px;
+  }
+}

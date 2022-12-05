@@ -1,0 +1,37 @@
+.nav {
+  margin-top: 20px;
+  margin-left: 120px;
+}
+
+.headertext {
+  font-size: 60px;
+  text-align: left;
+  color: #ffffff;
+  font-family: Manrope;
+}
+
+.ptags {
+  margin-top: 3%;
+  font-size: 20px;
+  color: rgb(255, 231, 187);
+  font-family: Manrope;
+}
+
+.numbercaloriesmeal {
+  margin-top: 3%;
+  font-size: 20px;
+  color: rgb(255, 231, 187);
+  font-family: Manrope;
+}
+
+@media only screen and (max-width: 767px) {
+  .headertext {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .nav {
+    margin-left: 5%;
+  }
+}

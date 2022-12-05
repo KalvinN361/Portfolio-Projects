@@ -1,0 +1,7 @@
+Openloot: This projects demonstrates the use of AWS, docker, React, api's, promises, and frontend functionality.
+
+Macro Demo: This project allows a user to input a specific calorie and macro breakdown and have our algorithm output a set of meals that can be adjusted manually. In addition, stripe has been integrates and allows the user to generate and charge the user for the selected Item. This project is in development.
+
+
+
+Clarification: These are freelance projects that I took on and the frontent design itself is something that was not chosen by myself, but rather how the client depicted the webpage within the figma. My primary role in project was to implement the functionality of the frontend.

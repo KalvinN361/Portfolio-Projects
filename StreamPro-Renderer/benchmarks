@@ -1,0 +1,66 @@
+
+swangle
+Rendered in 14721ms
+Encoded in 782ms
+Rendered in 13804ms
+Encoded in 797ms
+Rendered in 14061ms
+Encoded in 776ms
+Rendered in 10970ms
+Encoded in 799ms
+Rendered in 13997ms
+Encoded in 792ms
+avg 14299.8
+
+
+angle
+Rendered in 9685ms
+Encoded in 785ms
+Rendered in 14009ms
+Encoded in 772ms
+Rendered in 10583ms
+Encoded in 760ms
+Rendered in 12985ms
+Encoded in 763ms
+Rendered in 13311ms
+Encoded in 727ms
+avg: 12876
+
+egl
+Rendered in 12570ms
+Encoded in 804ms
+Rendered in 13830ms
+Encoded in 743ms
+Rendered in 14410ms
+Encoded in 785ms
+Rendered in 13183ms
+Encoded in 777ms
+Rendered in 13403ms
+Encoded in 798ms
+avg: 14260.6
+
+swiftshader
+Rendered in 10990ms
+Encoded in 833ms
+Rendered in 14875ms
+Encoded in 785ms
+Rendered in 10971ms
+Encoded in 760ms
+Rendered in 10952ms
+Encoded in 773ms
+Rendered in 14541ms
+Encoded in 797ms
+avg: 13255.4
+
+none
+Rendered in 13332ms
+Encoded in 762ms
+Rendered in 13228ms
+Encoded in 800ms
+Rendered in 10603ms
+Encoded in 780ms
+Rendered in 13006ms
+Encoded in 756ms
+Rendered in 13619ms
+Encoded in 773ms
+avg 13373.4

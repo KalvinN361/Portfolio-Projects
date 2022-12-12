@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { Carousel } from "react-responsive-carousel";
 import styles from "../styles/Home.module.css";

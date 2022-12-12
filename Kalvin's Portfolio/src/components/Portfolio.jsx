@@ -2,6 +2,8 @@ import React from "react";
 import presnap from "../assets/portfolio/presnap1.png";
 import openloot from "../assets/portfolio/openloot.png";
 import macro from "../assets/portfolio/macro.png";
+import portfolio from "../assets/portfolio/portfolio.png";
+
 const Portfolio = () => {
 	const portfolios = [
 		{
@@ -19,6 +21,12 @@ const Portfolio = () => {
 			id: 3,
 			src: macro,
 			repo: "https://github.com/KalvinN361/Sample-Projects/tree/main/Macro%20Demo",
+		},
+		{
+			id: 4,
+			src: portfolio,
+			link: "kalvinportfolio.vercel.app",
+			repo: "https://github.com/KalvinN361/Portfolio",
 		},
 	];
 

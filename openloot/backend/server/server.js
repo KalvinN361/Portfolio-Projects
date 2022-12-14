@@ -1,13 +1,13 @@
-// import axios from "axios";
-// import functions from "@google-cloud/functions-framework";
-// import sb from "@supabase/supabase-js";
-const functions = require("@google-cloud/functions-framework");
-const axios = require("axios");
-const sb = require("@supabase/supabase-js");
-const createClient = sb.createClient;
-const SupabaseClient = sb.SupabaseClient;
+import axios from "axios";
+import functions from "@google-cloud/functions-framework";
+import sb from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
+// const functions = require("@google-cloud/functions-framework");
+// const axios = require("axios");
+// const sb = require("@supabase/supabase-js");
+// const createClient = sb.createClient;
+// const SupabaseClient = sb.SupabaseClient;
 
-//import { createClient, SupabaseClient } from "@supabase/supabase-js";
 // import AWS from "aws-sdk";
 
 functions.http("helloHttp", async (req, res) => {
@@ -16,7 +16,7 @@ functions.http("helloHttp", async (req, res) => {
 });
 const supabaseUrl = "https://ihboqqomxmcwyjbxrlpj.supabase.co";
 const supabaseAnonKey =
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloYm9xcW9teG1jd3lqYnhybHBqIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY0Nzk5ODMwMSwiZXhwIjoxOTYzNTc0MzAxfQ.gHxe-icsTI5Zww6EqHQ5Gsbw1F0gFUSqyOGIJkHu4jU";
+	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloYm9xcW9teG1jd3lqYnhybHBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzAyNjQ3ODgsImV4cCI6MTk4NTg0MDc4OH0.LYtwEpZwITCBjKJXfsgadZlZM6hdoKvQPr-6ztCWR20";
 // dotenv.config();
 // const interval = setInterval(function () {}, 5000);
 // clearInterval(interval);
@@ -128,6 +128,15 @@ async function getTikTokData(data) {
 						});
 					}
 				}
+				// HERE we will be updating the row in GBQ where responseId is equal to x
+				// await supabase
+				//   .from("openloot")
+				//   .update({ tiktokRecurring: response.data })
+				//   .eq("responseId", userresponseId)
+				//   .single();
+				// const query = "UPDATE dataset.open_loot "`SET tiktokRecurring = ${response.data} ``WHERE responseId = ${userresponseId}`;
+				// query_job = bigqueryClient.query(query);
+				// query_job.result();
 			})
 			.catch(function (error) {
 				console.log(error);
@@ -146,7 +155,7 @@ async function getYoutubeData(data) {
 		.single();
 	const clientId =
 		"109739013430-07r0sf26hduocuaoqjf0rmt9ofutlqg2.apps.googleusercontent.com";
-	const clientSecret = "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";
+	const clientSecret = "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";
 	if (sbData.youtubeAccess != null) {
 		const refreshToken = {
 			method: "POST",
@@ -176,9 +185,17 @@ async function getYoutubeData(data) {
 			.select("youtubeAccess")
 			.eq("responseId", userresponseId)
 			.single();
+		// const channelId = await supabase
+		//   .from("openloot")
+		//   .select("youtubeBasic")
+		//   .eq("responseId", userresponseId)
+		//   .single();
+		// console.log(channelId.data.youtubeBasic.items[0].id);
 		const getVideoData = {
 			method: "GET",
 			url: `https://www.googleapis.com/youtube/v3/search?part=snippet&forMine=true&order=date&type=video`,
+			// url: `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&channelId=${channelId.data.youtubeBasic.items[0].id}&order=date`,
+			// url: `https://www.googleapis.com/youtube/v3/videos?channelId=${id.data.youtubeid}&fields=items(id,snippet(title,categoryId),statistics)&part=snippet`,
 			headers: {
 				Authorization: `Bearer ${newAccessToken.data.youtubeAccess}`,
 				"content-type": "application/x-www-form-urlencoded",
@@ -238,6 +255,30 @@ async function getYoutubeData(data) {
 			.catch(function (error) {
 				console.log(error);
 			});
+		// const getSubscriberCount = {
+		//   method: "GET",
+		//   url: `https://youtube.googleapis.com/youtube/v3/channels?client_id=${clientId}&part=snippet%2CcontentDetails%2Cstatistics&mine=true`,
+		//   headers: {
+		//     Authorization: `Bearer ${youtubeAccess.data.youtubeAccess}`,
+		//     "content-type": "application/x-www-form-urlencoded",
+		//   },
+		// };
+		// await axios
+		//   .request(getSubscriberCount)
+		//   .then(async function (response) {
+		//     // console.log(response.data.items[0].statistics.subscriberCount);
+		//     await supabase
+		//       .from("openloot")
+		//       .update({
+		//         youtubesubscriberCount:
+		//           response.data.items[0].statistics.subscriberCount,
+		//       })
+		//       .eq("responseId", userresponseId)
+		//       .single();
+		//   })
+		//   .catch(function (error) {
+		//     console.log(error);
+		//   });
 	}
 	console.log("youtube data updated");
 }
@@ -251,7 +292,7 @@ async function getTwitterData(data) {
 		.select("twitterAccess, twitterRefresh, email")
 		.eq("responseId", userresponseId)
 		.single();
-	const clientSecret = "Y4FKdSUZ1LntNK1XMGr5qq9Xyz2hL7zaE9d24M_LBOV4bECfVz";
+	const clientSecret = "dUF2wRhLxJVT615PcUXdifYb1Uj85yAnrtdzpbUf5pRVC-P5cR";
 	if (sbData.twitterAccess != null) {
 		const clientId = "UDJZRzBxMGZ4bWEtSDlQTWE1N2g6MTpjaQ";
 		const options = {
@@ -299,6 +340,15 @@ async function getTwitterData(data) {
 		await axios
 			.request(getTweets)
 			.then(async function (response) {
+				// console.log(response.data.data[0].entities.hashtags);
+				// await supabase
+				//   .from("openloot")
+				//   .update({ twitterRecurring: response.data })
+				//   .eq("responseId", userresponseId)
+				//   .single();
+				// const query = `UPDATE dataset.open_loot SET twitterRecurring = ${response.data} WHERE responseId = ${userresponseId}`;
+				// query_job = bigqueryClient.query(query);
+				// query_job.result();
 				if (response.data != null || response.data != undefined) {
 					for (let i = 0; i < response.data.data.length; i++) {
 						const str = response.data.data[i].text;
@@ -382,9 +432,10 @@ async function getTwitterData(data) {
 async function getTwitchData(data) {
 	// const { userresponseId } = req.body;
 	const userresponseId = data;
+
 	const typeformId = "HYOosRUX";
 	const typeformToken =
-		"tfp_74jfFDSmrqXNmM9MrFbp2ha8rTBiTYgWTrjCwyfV1Q9d_3pYNtJWTqHVSBJ";
+		"tfp_DMMrznnKFHV7fvzgxJ3iDMKJFrT8ZvVWCfYKTSWGztnW_3w4N3Qpgk6rHg3";
 	const typeformResponse = {
 		method: "GET",
 		url: `https://api.typeform.com/forms/${typeformId}/responses?included_response_ids=${userresponseId}&fields=krDc198u5nVB`,
@@ -396,6 +447,8 @@ async function getTwitchData(data) {
 	await axios
 		.request(typeformResponse)
 		.then(async function (response) {
+			console.log(response.data);
+			console.log(response);
 			// console.log(response.data.items[0].answers[0].email);
 			if (response.data.items != null) {
 				await supabase
@@ -408,6 +461,7 @@ async function getTwitchData(data) {
 		.catch(function (error) {
 			console.log(error);
 		});
+
 	const { data: sbData, error } = await supabase
 		.from("openloot")
 		.select("twitchAccess, twitchRefresh, twitchuserId, email")

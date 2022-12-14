@@ -23,7 +23,7 @@ def hello_world(request):
     return "Done!"
 
 def main():
-    con = pg8000.native.Connection("postgres", host="db.ihboqqomxmcwyjbxrlpj.supabase.co", database="postgres", password="wd7vFukrDM5V43TY")
+    con = pg8000.native.Connection("postgres", host="db.ihboqqomxmcwyjbxrlpj.supabase.co", database="postgres", password="7ySDDiR3aRVFTdFa")
     print("Connected to Postgres...")
     tiktok.export_csv(con)
     twitch.export_csv(con)
@@ -38,27 +38,27 @@ def main():
     client = storage.Client.from_service_account_json("mindr-359117-61a6d45350e5.json")
     bucket = client.get_bucket("openloot_socials")
     blob = bucket.blob("tiktok.csv")
-    blob.upload_from_filename("tiktok.csv")
+    blob.upload_from_filename("/tmp/tiktok.csv")
     blob = bucket.blob("twitch.csv")
-    blob.upload_from_filename("twitch.csv")
+    blob.upload_from_filename("/tmp/twitch.csv")
     blob = bucket.blob("twitter.csv")
-    blob.upload_from_filename("twitter.csv")
+    blob.upload_from_filename("/tmp/twitter.csv")
     blob = bucket.blob("youtube.csv")
-    blob.upload_from_filename("youtube.csv")
+    blob.upload_from_filename("/tmp/youtube.csv")
     blob = bucket.blob("user.csv")
-    blob.upload_from_filename("user.csv")
+    blob.upload_from_filename("/tmp/user.csv")
     blob = bucket.blob("twitterSpaces.csv")
-    blob.upload_from_filename("twitterSpaces.csv")
+    blob.upload_from_filename("/tmp/twitterSpaces.csv")
     print("Done uploading csvs!")
 
     # delete csvs
     print("Deleting csvs...")
-    os.remove("tiktok.csv")
-    os.remove("twitch.csv")
-    os.remove("twitter.csv")
-    os.remove("youtube.csv")
-    os.remove("user.csv")
-    os.remove("twitterSpaces.csv")
+    os.remove("/tmp/tiktok.csv")
+    os.remove("/tmp/twitch.csv")
+    os.remove("/tmp/twitter.csv")
+    os.remove("/tmp/youtube.csv")
+    os.remove("/tmp/user.csv")
+    os.remove("/tmp/twitterSpaces.csv")
 
     print("Done deleting csvs!")
     # close connection

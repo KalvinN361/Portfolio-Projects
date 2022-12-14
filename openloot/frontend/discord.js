@@ -5,7 +5,7 @@ const { createClient } = require("@supabase/supabase-js");
 
 const DATABASE_URL = "https://ihboqqomxmcwyjbxrlpj.supabase.co";
 const SUPABASE_SERVICE_API_KEY =
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloYm9xcW9teG1jd3lqYnhybHBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDc5OTgzMDEsImV4cCI6MTk2MzU3NDMwMX0.h5JPY4tOUZxbBEdAegnYcs35hpdZGt80vCXep5daWAs";
+	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloYm9xcW9teG1jd3lqYnhybHBqIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY3MDI2NDc4OCwiZXhwIjoxOTg1ODQwNzg4fQ.7GEz9VZimvl44MZnelNMyXjmSEPXDnme6-9YX9d2z8g";
 const supabase = createClient(DATABASE_URL, SUPABASE_SERVICE_API_KEY);
 
 async function discordAuth() {
@@ -26,7 +26,7 @@ async function sendCode() {
 		var url = new URL(url_string);
 		var code = url.searchParams.get("code");
 		// HERE we make a post request to our backend running on cloud run with the code we got from twitch
-		await axios.post("https://api-xdws3nxmia-uc.a.run.app/discord", {
+		await axios.post("https://server-e4bkq5wbca-uc.a.run.app/discord", {
 			code: `${code}`,
 			responseId: `${userresponseId}`,
 		});

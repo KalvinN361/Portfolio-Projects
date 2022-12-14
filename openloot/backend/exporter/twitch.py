@@ -14,7 +14,7 @@ def export_csv(con):
 
     print("Dumping memory to csv...")
     stream_out.seek(0)
-    with open("twitch.csv", "w") as f:
+    with open("/tmp/twitch.csv", "w") as f:
         writer = csv.writer(f)
         for row in csv.reader(stream_out):
             writer.writerow(row)

@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@google-cloud/functions-framework": "^3.1.2",
+    "@google-cloud/bigquery": "^6.0.2",
     "@supabase/supabase-js": "^1.35.4",
     "axios": "^0.27.2",
     "cors": "^2.8.5",

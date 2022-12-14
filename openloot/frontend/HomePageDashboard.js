@@ -14,9 +14,9 @@ const youtubeclientId =
 const discordclientId = "1009523640901058632";
 const tiktokclientKey = "awl3jaifictg61ra";
 const userresponseId = localStorage.getItem("responseId");
+// checks local storage for account email
 
 async function legacy() {
-	// checks local storage for account email
 	const accountEmail = localStorage.getItem("email");
 	// Get userresponseId from local storage
 	let userresponseId = localStorage.getItem("responseId");
@@ -46,13 +46,16 @@ async function legacy() {
 				.insert([{ email: accountEmail, responseId: randomNumber }]);
 			window.location.reload();
 		}
+		// console.log(sbData);
 		// HERE we are checking to see if responseId is null and sbData is not null
 		if (userresponseId == null && sbData.email) {
 			const { data: sbDataNew, error } = await supabase
 				.from("openloot")
 				.select("*")
-				.eq("email", accountEmail)
+				.eq("email", sbData.email)
 				.single();
+			// console.log(sbDataNew);
+			localStorage.setItem("responseId", sbDataNew.responseId);
 		}
 	}
 }
@@ -119,10 +122,10 @@ async function twitchAuth() {
 		`?response_type=code` +
 		`&client_id=${encodeURIComponent("yk62ix6gpuplw5acj37vh5l06zjobw")}` +
 		`&redirect_uri=${encodeURIComponent(
-			"https://ambassador.openloot.com/auth-page"
+			"https://ambassador.openloot.com/dashboard"
 		)}` +
 		`&scope=channel:read:subscriptions+user:read:broadcast+user:read:email` +
-		`&state=1998` +
+		`&state=twitchDashboard` +
 		`&force_verify=true`;
 	let userresponseId = localStorage.getItem("responseId");
 
@@ -138,7 +141,7 @@ async function twitterAuth() {
 			"https://ambassador.openloot.com/twitter-auth/"
 		)}` +
 		`&scope=tweet.read%20users.read%20follows.read%20follows.write%20offline.access` +
-		`&state=super` +
+		`&state=twitterDashboard` +
 		`&code_challenge=challenge` +
 		`&code_challenge_method=plain` +
 		`&force_login=true`;
@@ -149,7 +152,7 @@ async function twitterAuth() {
 async function youtubeAuth() {
 	const clientId =
 		"109739013430-07r0sf26hduocuaoqjf0rmt9ofutlqg2.apps.googleusercontent.com";
-	const redirectUri = "https://ambassador.openloot.com/auth-page";
+	const redirectUri = "https://ambassador.openloot.com/dashboard";
 	const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=${redirectUri}&response_type=code&client_id=${clientId}&prompt=consent`;
 
 	// HERE we will be redirecting the user to twitch authorization page for oAuth
@@ -158,7 +161,7 @@ async function youtubeAuth() {
 
 async function discordAuth() {
 	const clientId = "1009523640901058632";
-	const redirectUri = "https://ambassador.openloot.com/auth-page";
+	const redirectUri = "https://ambassador.openloot.com/dashboard";
 	const scopes = "activities.read,email,identify";
 	const authUrl = `https://discord.com/api/oauth2/authorize?response_type=code&client_id=${clientId}&state=246810&scope=email%20identify&redirect_uri=${redirectUri}&prompt=consent`;
 
@@ -174,7 +177,7 @@ async function tiktokAuth() {
 		`&scope=user.info.basic,video.list` +
 		`&response_type=code` +
 		`&redirect_uri=${encodeURIComponent(
-			"https://ambassador.openloot.com/auth-page"
+			"https://ambassador.openloot.com/dashboard"
 		)}` +
 		`&state=${csrfState}`;
 
@@ -189,12 +192,12 @@ async function sendTwitchCode() {
 		var url = new URL(url_string);
 		var code = url.searchParams.get("code");
 		// HERE we are sending the code through a post request to the backend api server
-		await axios.post("https://server-e4bkq5wbca-uc.a.run.app/twitchProfile", {
+		await axios.post("https://server-e4bkq5wbca-uc.a.run.app/twitchDashboard", {
 			code: `${code}`,
 			responseId: `${userresponseId}`,
 		});
 	}
-	window.location.href = "https://ambassador.openloot.com/auth-page";
+	window.location.href = "https://ambassador.openloot.com/dashboard";
 }
 async function sendTwitterCode() {
 	let userresponseId = localStorage.getItem("responseId");
@@ -210,7 +213,7 @@ async function sendTwitterCode() {
 			responseId: `${userresponseId}`,
 		});
 	}
-	// window.location.href = "https://ambassador.openloot.com/auth-page";
+	// window.location.href = "https://ambassador.openloot.com/dashboard";
 }
 async function sendYoutubeCode() {
 	let userresponseId = localStorage.getItem("responseId");
@@ -221,12 +224,15 @@ async function sendYoutubeCode() {
 		var code = url.searchParams.get("code");
 		// HERE we are sending the code through a post request to the backend api server
 
-		await axios.post("https://server-e4bkq5wbca-uc.a.run.app/youtubeProfile", {
-			code: `${code}`,
-			responseId: `${userresponseId}`,
-		});
+		await axios.post(
+			"https://server-e4bkq5wbca-uc.a.run.app/youtubeDashboard",
+			{
+				code: `${code}`,
+				responseId: `${userresponseId}`,
+			}
+		);
 	}
-	window.location.href = "https://ambassador.openloot.com/auth-page";
+	window.location.href = "https://ambassador.openloot.com/dashboard";
 }
 async function sendDiscordCode() {
 	let userresponseId = localStorage.getItem("responseId");
@@ -237,12 +243,15 @@ async function sendDiscordCode() {
 		var code = url.searchParams.get("code");
 		// HERE we are sending the code through a post request to the backend api server
 
-		await axios.post("https://server-e4bkq5wbca-uc.a.run.app/discordProfile", {
-			code: `${code}`,
-			responseId: `${userresponseId}`,
-		});
+		await axios.post(
+			"https://server-e4bkq5wbca-uc.a.run.app/discordDashboard",
+			{
+				code: `${code}`,
+				responseId: `${userresponseId}`,
+			}
+		);
 	}
-	window.location.href = "https://ambassador.openloot.com/auth-page";
+	window.location.href = "https://ambassador.openloot.com/dashboard";
 }
 async function sendTiktokCode() {
 	let userresponseId = localStorage.getItem("responseId");
@@ -253,12 +262,12 @@ async function sendTiktokCode() {
 		var code = url.searchParams.get("code");
 		// HERE we are sending the code through a post request to the backend api server
 
-		await axios.post("https://server-e4bkq5wbca-uc.a.run.app/tiktokProfile", {
+		await axios.post("https://server-e4bkq5wbca-uc.a.run.app/tiktokDashboard", {
 			code: `${code}`,
 			responseId: `${userresponseId}`,
 		});
 	}
-	window.location.href = "https://ambassador.openloot.com/auth-page";
+	window.location.href = "https://ambassador.openloot.com/dashboard";
 }
 
 document.addEventListener("click", function (evnt) {
@@ -305,7 +314,7 @@ window.onload = function () {
 	) {
 		sendTwitchCode();
 		twitchExectuted = true;
-		// window.location.href = "https://ambassador.openloot.com/auth-page";
+		// window.location.href = "https://ambassador.openloot.com/dashboard";
 	} else if (
 		window.location.href.indexOf("code") > -1 &&
 		twitterExectuted === false &&
@@ -313,7 +322,7 @@ window.onload = function () {
 	) {
 		sendTwitterCode();
 		twitterExectuted = true;
-		window.location.href = "https://ambassador.openloot.com/auth-page";
+		window.location.href = "https://ambassador.openloot.com/dashboard";
 	} else if (
 		window.location.href.indexOf("code") > -1 &&
 		youtubeExectuted === false &&
@@ -322,7 +331,7 @@ window.onload = function () {
 		sendYoutubeCode();
 		youtubeExectuted = true;
 
-		// window.location.href = "https://ambassador.openloot.com/auth-page";
+		// window.location.href = "https://ambassador.openloot.com/dashboard";
 	} else if (
 		window.location.href.indexOf("code") > -1 &&
 		discordExectuted === false &&
@@ -330,7 +339,7 @@ window.onload = function () {
 	) {
 		sendDiscordCode();
 		discordExectuted = true;
-		// window.location.href = "https://ambassador.openloot.com/auth-page";
+		// window.location.href = "https://ambassador.openloot.com/dashboard";
 	} else if (
 		window.location.href.indexOf("code") > -1 &&
 		tiktokExectuted === false &&
@@ -339,6 +348,6 @@ window.onload = function () {
 		sendTiktokCode();
 		tiktokExectuted = true;
 
-		// window.location.href = "https://ambassador.openloot.com/auth-page";
+		// window.location.href = "https://ambassador.openloot.com/dashboard";
 	}
 };

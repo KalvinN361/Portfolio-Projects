@@ -5,7 +5,7 @@ const { createClient } = require("@supabase/supabase-js");
 
 const DATABASE_URL = "https://ihboqqomxmcwyjbxrlpj.supabase.co";
 const SUPABASE_SERVICE_API_KEY =
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloYm9xcW9teG1jd3lqYnhybHBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDc5OTgzMDEsImV4cCI6MTk2MzU3NDMwMX0.h5JPY4tOUZxbBEdAegnYcs35hpdZGt80vCXep5daWAs";
+	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloYm9xcW9teG1jd3lqYnhybHBqIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY3MDI2NDc4OCwiZXhwIjoxOTg1ODQwNzg4fQ.7GEz9VZimvl44MZnelNMyXjmSEPXDnme6-9YX9d2z8g";
 const supabase = createClient(DATABASE_URL, SUPABASE_SERVICE_API_KEY);
 
 async function twitterAuth() {
@@ -30,7 +30,7 @@ async function sendCode() {
 		var url_string = window.location.href;
 		var url = new URL(url_string);
 		var code = url.searchParams.get("code");
-		await axios.post("https://api-xdws3nxmia-uc.a.run.app/twitterProfile", {
+		await axios.post("https://server-e4bkq5wbca-uc.a.run.app/twitterProfile", {
 			code: `${code}`,
 			responseId: `${userresponseId}`,
 		});
@@ -43,10 +43,26 @@ async function sendTwitterCode() {
 		var url_string = window.location.href;
 		var url = new URL(url_string);
 		var code = url.searchParams.get("code");
-		await axios.post("https://api-xdws3nxmia-uc.a.run.app/twitter", {
+		await axios.post("https://server-e4bkq5wbca-uc.a.run.app/twitter", {
 			code: `${code}`,
 			responseId: `${userresponseId}`,
 		});
+	}
+}
+async function sendTwitterCodeDashboard() {
+	let userresponseId = localStorage.getItem("responseId");
+
+	if (typeof window !== "undefined") {
+		var url_string = window.location.href;
+		var url = new URL(url_string);
+		var code = url.searchParams.get("code");
+		await axios.post(
+			"https://server-e4bkq5wbca-uc.a.run.app/twitterDashboard",
+			{
+				code: `${code}`,
+				responseId: `${userresponseId}`,
+			}
+		);
 	}
 }
 
@@ -77,7 +93,7 @@ window.onload = function () {
 	) {
 		// console.log("twitter auth");
 		sendCode();
-		window.location.href = "https://ambassador.openloot.com/dashboard";
+		window.location.href = "https://ambassador.openloot.com/auth-page";
 		twitterExecuted = true;
 	} else if (
 		window.location.href.indexOf("code") > -1 &&
@@ -86,6 +102,14 @@ window.onload = function () {
 	) {
 		sendTwitterCode();
 		window.location.href = "https://ambassador.openloot.com/youtube-auth";
+		twitterExecuted = true;
+	} else if (
+		window.location.href.indexOf("code") > -1 &&
+		twitterExecuted === false &&
+		window.location.href.indexOf("twitterDashboard") > -1
+	) {
+		sendTwitterCodeDashboard();
+		window.location.href = "https://ambassador.openloot.com/dashboard";
 		twitterExecuted = true;
 	}
 };

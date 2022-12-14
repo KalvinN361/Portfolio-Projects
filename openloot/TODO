@@ -1,0 +1,22 @@
+Create a new page for dashboard auth and have the post request send to the api.js. 
+-done
+
+Create a post request to be accepted within the api.js
+- done
+
+Have Michael give accces to the twitch page as to change the redirect url. 
+- Need to have completed
+
+Create twitter handling as there is no way to change the twitter redirect url. (Only one value is allowed to bet set) 
+- done
+
+Rotate the oauth api credentials
+- Twitter Done 
+- Youtube Secret Changed 
+- tiktok done
+- discord done
+
+Rotate the supabase secret credentials 
+- done
+
+Fixed Issue with api being called before responseId is fully saved into local storage

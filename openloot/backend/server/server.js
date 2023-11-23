@@ -14,9 +14,8 @@ functions.http("helloHttp", async (req, res) => {
 	await captureData();
 	res.send(`completed`);
 });
-const supabaseUrl = "https://ihboqqomxmcwyjbxrlpj.supabase.co";
-const supabaseAnonKey =
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloYm9xcW9teG1jd3lqYnhybHBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzAyNjQ3ODgsImV4cCI6MTk4NTg0MDc4OH0.LYtwEpZwITCBjKJXfsgadZlZM6hdoKvQPr-6ztCWR20";
+const supabaseUrl = supabaseUrl;
+const supabaseAnonKey = supabaseAnonKey;
 // dotenv.config();
 // const interval = setInterval(function () {}, 5000);
 // clearInterval(interval);

@@ -9,10 +9,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 const port = 3000;
-const supabaseUrl = "https://ihboqqomxmcwyjbxrlpj.supabase.co";
-const supabaseAnonKey =
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloYm9xcW9teG1jd3lqYnhybHBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzAyNjQ3ODgsImV4cCI6MTk4NTg0MDc4OH0.LYtwEpZwITCBjKJXfsgadZlZM6hdoKvQPr-6ztCWR20";
-// dotenv.config();
+const supabaseUrl = supabseUrlENV; // dotenv.config();
+const supabaseAnonKey = supabaseAnonKeyENV; // dotenv.config();
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 app.post("/twitch", (req, res) => {
@@ -21,7 +19,7 @@ app.post("/twitch", (req, res) => {
 	async function getTwitchtoken() {
 		const clientId = "yk62ix6gpuplw5acj37vh5l06zjobw";
 		const redirectUri = "https://ambassador.openloot.com/twitch-auth";
-		const clientSecret = "os7gvwyrfbxmvs5c5uzst3bixgf0s8";
+		const clientSecret = clientSecret;
 		const AccessToken = await supabase
 			.from("openloot")
 			.select("twitchAccess")

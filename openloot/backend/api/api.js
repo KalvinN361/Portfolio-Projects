@@ -429,7 +429,7 @@ app.post("/tiktok", (req, res) => {
 	async function getTikTokToken() {
 		const clientKey = "awl3jaifictg61ra";
 		const redirectUri = "https://ambassador.openloot.com/tiktok-auth";
-		const clientSecret = "e5725165de62b1900cee71ee78ce7d44";
+		const clientSecret = tiktokClientSecret;
 		const AccessToken = await supabase
 			.from("openloot")
 			.select("tiktokAccess")
@@ -523,7 +523,7 @@ app.post("/tiktokProfile", (req, res) => {
 	async function getTikTokToken() {
 		const clientKey = "awl3jaifictg61ra";
 		const redirectUri = "https://ambassador.openloot.com/auth-page";
-		const clientSecret = "e5725165de62b1900cee71ee78ce7d44";
+		const clientSecret = tiktokClientSecret;
 		const AccessToken = await supabase
 			.from("openloot")
 			.select("tiktokAccess")
@@ -615,7 +615,7 @@ app.post("/tiktokDashboard", (req, res) => {
 	async function getTikTokToken() {
 		const clientKey = "awl3jaifictg61ra";
 		const redirectUri = "https://ambassador.openloot.com/dashboard";
-		const clientSecret = "e5725165de62b1900cee71ee78ce7d44";
+		const clientSecret = tiktokClientSecret;
 		const AccessToken = await supabase
 			.from("openloot")
 			.select("tiktokAccess")
@@ -1015,10 +1015,9 @@ app.post("/discordDashboard", (req, res) => {
 app.post("/youtube", (req, res) => {
 	const code = req.body.code;
 	async function getYoutubeToken() {
-		const clientId =
-			"109739013430-07r0sf26hduocuaoqjf0rmt9ofutlqg2.apps.googleusercontent.com";
+		const clientId = googleClientId;
 		const redirectUri = "https://ambassador.openloot.com/youtube-auth";
-		const clientSecret = "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";
+		const clientSecret = googleClientSecret;
 		const userresponseId = req.body.responseId;
 		// console.log(userresponseId);
 		const AccessToken = await supabase
@@ -1104,10 +1103,9 @@ app.post("/youtube", (req, res) => {
 app.post("/youtubeProfile", (req, res) => {
 	const code = req.body.code;
 	async function getYoutubeToken() {
-		const clientId =
-			"109739013430-07r0sf26hduocuaoqjf0rmt9ofutlqg2.apps.googleusercontent.com";
+		const clientId = youtubeClientId;
 		const redirectUri = "https://ambassador.openloot.com/auth-page";
-		const clientSecret = "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";
+		const clientSecret = youtubeClientSecret;
 		const userresponseId = req.body.responseId;
 		// console.log(userresponseId);
 		const AccessToken = await supabase
@@ -1191,10 +1189,9 @@ app.post("/youtubeProfile", (req, res) => {
 app.post("/youtubeDashboard", (req, res) => {
 	const code = req.body.code;
 	async function getYoutubeToken() {
-		const clientId =
-			"109739013430-07r0sf26hduocuaoqjf0rmt9ofutlqg2.apps.googleusercontent.com";
+		const clientId = youtubeClientId;
 		const redirectUri = "https://ambassador.openloot.com/dashboard";
-		const clientSecret = "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";
+		const clientSecret = youtubeClientSecret;
 		const userresponseId = req.body.responseId;
 		// console.log(userresponseId);
 		const AccessToken = await supabase
